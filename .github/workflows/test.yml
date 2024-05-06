@@ -1,0 +1,32 @@
+name: ElysiaServer # Name it however you want
+
+on:
+  push:
+    branches:
+      - main
+  # workflow_dispatch: # Execute on manual trigger
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-22.04 # Linux base image
+    steps:
+    #   - name: Checkout Repository
+    #     uses: actions/checkout@v3.3.0
+
+
+      - name: execute remote ssh
+        uses: appleboy/ssh-action@1.0.3
+        with:
+          host: ${{ secrets.REMOTE_SSH_HOST }}
+          username: ${{ secrets.REMOTE_SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          passphrase: ${{ secrets.SSH_PASSPHRASE }}
+          port: ${{ secrets.REMOTE_SSH_PORT }}
+          script: |
+            whoami
+      # - uses: oven-sh/setup-bun@v1 # Setup bun
+      #   with:
+      #       bun-version: 1.1.7 # You can also use a specific version
+      # - run: bun install # Only needed if you have any dependencies
+      # - run: bun start # Change to your entrypoint!
