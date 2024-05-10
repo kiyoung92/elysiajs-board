@@ -1,8 +1,10 @@
 import { Elysia } from "elysia";
+import { userController } from "./controllers/user.controller";
 
 const app = new Elysia()
   .get("/", () => "Hello Elysia")
   .get('/hello', () => "hello world!")
+  .get('/user', () => userController())
   .route('USER', '/user', () => 'user!')
   .listen(3000);
 
